@@ -3,12 +3,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Inter',sans-serif;background:#f0f2f7;color:#0f1c3f;min-height:100vh;font-size:13px}
-.shell{display:grid;grid-template-columns:380px 1fr;min-height:100vh}
+.shell{display:grid;grid-template-columns:400px 1fr;min-height:100vh}
 .sidebar{background:#fff;border-right:1px solid #e2e8f4;display:flex;flex-direction:column;overflow-y:auto}
 .sidebar-top{background:#00205B;padding:18px 20px 16px}
 .sidebar-top h1{font-size:13px;font-weight:600;color:#fff;letter-spacing:.4px;line-height:1.4}
 .sidebar-top p{font-size:11px;color:rgba(255,255,255,.55);margin-top:3px}
-.sidebar-body{padding:16px;display:flex;flex-direction:column;gap:20px;flex:1}
+.sidebar-body{padding:16px;display:flex;flex-direction:column;gap:16px;flex:1}
 .card{background:#f8fafd;border:1px solid #e2e8f4;border-radius:10px;padding:14px 16px}
 .card-title{font-size:10px;font-weight:600;color:#00205B;text-transform:uppercase;letter-spacing:1.2px;margin-bottom:12px;display:flex;align-items:center;gap:6px}
 .card-title-dot{width:6px;height:6px;border-radius:50%;background:#00205B;flex-shrink:0}
@@ -17,7 +17,7 @@ body{font-family:'Inter',sans-serif;background:#f0f2f7;color:#0f1c3f;min-height:
 .field label{font-size:10px;font-weight:600;color:#64748b;text-transform:uppercase;letter-spacing:.6px}
 input[type=date],input[type=text],select,textarea{background:#fff;border:1px solid #dde3ef;border-radius:7px;padding:8px 11px;font-family:'Inter',sans-serif;font-size:12.5px;color:#0f1c3f;outline:none;width:100%;transition:border-color .15s,box-shadow .15s}
 input:focus,select:focus,textarea:focus{border-color:#00205B;box-shadow:0 0 0 3px rgba(0,32,91,.1)}
-textarea{resize:vertical;min-height:72px;line-height:1.55}
+textarea{resize:vertical;line-height:1.6}
 .date-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .logo-drop{border:1.5px dashed #c8d5ea;border-radius:8px;padding:12px;display:flex;align-items:center;gap:10px;cursor:pointer;background:#fff;transition:border-color .15s,background .15s}
 .logo-drop:hover{border-color:#00205B;background:#f0f5fb}
@@ -43,18 +43,18 @@ textarea{resize:vertical;min-height:72px;line-height:1.55}
 .btn-secondary{background:#fff;color:#00205B;border:1.5px solid #00205B;padding:10px 14px;border-radius:8px;font-family:'Inter',sans-serif;font-size:12px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:background .15s}
 .btn-secondary:hover{background:#eef3fb}
 .btn-secondary:disabled{opacity:.35;cursor:not-allowed}
+.btn-reset{background:none;border:none;color:#94a3b8;font-size:10px;font-family:'Inter',sans-serif;cursor:pointer;padding:0;text-decoration:underline;float:right;margin-top:-18px}
+.btn-reset:hover{color:#00205B}
 .icon-svg{width:14px;height:14px;flex-shrink:0}
 .preview-panel{background:#e8ecf5;display:flex;flex-direction:column;align-items:center;padding:24px 20px;overflow-y:auto}
 .preview-bar{display:flex;align-items:center;gap:10px;margin-bottom:16px;flex-wrap:wrap;justify-content:center}
 .preview-bar-label{font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:#7a8fae}
-.nav-btn{background:#00205B;color:#fff;border:none;padding:5px 14px;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:background .15s}
+.nav-btn{background:#00205B;color:#fff;border:none;padding:5px 14px;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif}
 .nav-btn:hover{background:#001845}
 .nav-count{font-size:11px;color:#64748b;font-weight:500}
 .carta-shell{background:#fff;width:640px;max-width:100%;box-shadow:0 2px 16px rgba(0,32,91,.13)}
 .carta{padding:42px 54px;font-family:Arial,sans-serif;font-size:11.5px;line-height:1.78;color:#111}
 .carta-hdr{margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid #d0d0d0}
-.carta-logo img{height:42px;width:auto}
-.carta-logo-txt{font-family:Arial,sans-serif;font-size:15px;font-weight:700;color:#00205B;line-height:1.2}
 .carta-fecha{margin-bottom:18px}
 .carta-dest{margin-bottom:16px;line-height:1.85}
 .carta-saludo{margin-bottom:12px}
@@ -78,8 +78,7 @@ textarea{resize:vertical;min-height:72px;line-height:1.55}
 .btn-ok{background:#00205B;color:#fff;border:none;padding:9px 18px;border-radius:7px;font-family:'Inter',sans-serif;font-size:12px;font-weight:600;cursor:pointer}
 .btn-ok:hover{background:#001845}
 .btn-cancel{background:#fff;color:#00205B;border:1.5px solid #00205B;padding:9px 18px;border-radius:7px;font-family:'Inter',sans-serif;font-size:12px;font-weight:600;cursor:pointer}
-.tip-box{background:#fffbeb;border:1px solid #fcd34d;border-radius:8px;padding:10px 14px;font-size:11px;color:#78350f;line-height:1.5;margin-bottom:12px}
-.tip-box strong{display:block;margin-bottom:2px;color:#92400e}
+.tag{display:inline-block;background:#e8f0fe;color:#1e40af;border-radius:4px;padding:1px 5px;font-size:9.5px;font-weight:600;margin:1px 2px;white-space:nowrap}
 </style>
 
 <div class="shell">
@@ -132,12 +131,41 @@ textarea{resize:vertical;min-height:72px;line-height:1.55}
       </button>
       <div style="margin-top:12px">
         <div class="field"><label>Pegar desde Excel</label>
-        <textarea id="pasteMasivo" placeholder="Copia y pega directamente desde Excel&#10;Columnas: ID · Nombre · Facultad"></textarea></div>
+        <textarea id="pasteMasivo" style="min-height:60px" placeholder="Copia y pega directamente desde Excel&#10;Columnas: ID · Nombre · Facultad"></textarea></div>
         <button class="btn-add" onclick="parseMasivo()">
           <svg class="icon-svg" viewBox="0 0 16 16" fill="none" stroke="#00387b" stroke-width="2"><rect x="2" y="2" width="12" height="12" rx="2"/><line x1="5" y1="6" x2="11" y2="6"/><line x1="5" y1="9" x2="9" y2="9"/></svg>
           Importar desde Excel
         </button>
         <p class="hint" style="margin-top:5px">Facultades: Comunicación, Ingeniería, Comportamiento, Vida/Bienestar, Medicina, Filosofía, Eicea, Jurídicas, Educación.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><div class="card-title-dot"></div>4 · Texto de la carta</div>
+      <button class="btn-reset" onclick="resetTexto()" title="Restaurar texto original">↺ Restaurar</button>
+      <p class="hint" style="margin-bottom:10px;margin-top:2px">
+        Edita el cuerpo de la carta. Usa las etiquetas:
+        <span class="tag">{evento}</span> <span class="tag">{rango}</span> <span class="tag">{lugar}</span>
+      </p>
+      <div class="field">
+        <label>Párrafo 1 — Certificación</label>
+        <textarea id="txtP1" style="min-height:90px"></textarea>
+      </div>
+      <div class="field">
+        <label>Párrafo 2 — Solicitud</label>
+        <textarea id="txtP2" style="min-height:110px"></textarea>
+      </div>
+      <div class="field">
+        <label>Párrafo 3 — Agradecimiento</label>
+        <textarea id="txtP3" style="min-height:60px"></textarea>
+      </div>
+      <div class="field">
+        <label>Firmante — Nombre</label>
+        <input type="text" id="txtFirmaNombre">
+      </div>
+      <div class="field">
+        <label>Firmante — Cargo</label>
+        <input type="text" id="txtFirmaCargo">
       </div>
     </div>
 
@@ -210,6 +238,22 @@ const dirs = {
   "Estudios Jurídicos":                   {nombre:"Jenniffer Jimenez Jimenez",          trato:"Apreciada Jenniffer:",      cargo:"Directora de Estudiantes", lbl:"Facultad de Estudios Jurídicos, Políticos e Internacionales"},
   "Educación":                            {nombre:"Carlos Alberto Gonzalez Gomez",      trato:"Apreciado Carlos Alberto:", cargo:"Director de Estudiantes",  lbl:"Facultad de Educación"}
 };
+
+const TEXTOS_DEFAULT = {
+  p1: `La Dirección de Bienestar y Experiencia del Estudiante certifica que los siguientes estudiantes {plural} a {evento} organizado por la Jefatura de Desarrollo Cultural, {rango}{lugar}.`,
+  p2: `Es de interés para la Universidad promover en nuestros estudiantes el fortalecimiento de competencias complementarias a las académicas como parte de su formación integral, por esta razón le solicitamos amablemente autorizar a los estudiantes en mención, la presentación de pruebas académicas de manera extemporánea, no cobrar supletorios de exámenes, y así mismo no registrar las fallas por su ausencia y mantener la calificación de estos sobre cinco (5) de aquellas que se presenten durante las fechas de su participación.`,
+  p3: `Agradezco su comprensión y apoyo con este tipo de actividades ya que son vitales en la experiencia de los estudiantes y nuestro Proyecto Educativo Institucional.`,
+  firmaNombre: `MAGDA LORENA BELTRÁN`,
+  firmaCargo:  `Jefe de Desarrollo Cultural`
+};
+
+function resetTexto(){
+  document.getElementById('txtP1').value = TEXTOS_DEFAULT.p1;
+  document.getElementById('txtP2').value = TEXTOS_DEFAULT.p2;
+  document.getElementById('txtP3').value = TEXTOS_DEFAULT.p3;
+  document.getElementById('txtFirmaNombre').value = TEXTOS_DEFAULT.firmaNombre;
+  document.getElementById('txtFirmaCargo').value  = TEXTOS_DEFAULT.firmaCargo;
+}
 
 let logoDataURL='', estudiantes=[], cartasData=[], cartaActual=0, params={};
 
@@ -311,27 +355,43 @@ function logoTag(){
   return`<div style="font-family:Arial,sans-serif;font-size:15px;font-weight:700;color:#00205B;line-height:1.2">Universidad de<br>La Sabana</div>`;
 }
 
-function buildCarta(dir,ests,fc,ev,fi,ff,lug){
-  const rango=fi===ff?`el ${fmt(fi)}`:`del ${fmt(fi)} al ${fmt(ff)}`;
-  const lugar=lug?` en ${lug}`:'';
-  const plural=ests.length===1?'asistió':'asistieron';
-  const filas=ests.map(e=>`<tr><td>${e.id}</td><td>${e.nombre}</td></tr>`).join('');
+function getTextos(ests, ev, rango, lugar){
+  const plural = ests.length===1 ? 'asistió' : 'asistieron';
+  const lugarStr = lugar ? ` en ${lugar}` : '';
+  const repl = t => t
+    .replace(/\{plural\}/g, plural)
+    .replace(/\{evento\}/g, `<strong>${ev}</strong>`)
+    .replace(/\{rango\}/g, rango)
+    .replace(/\{lugar\}/g, lugarStr);
+  return {
+    p1: repl(document.getElementById('txtP1').value),
+    p2: document.getElementById('txtP2').value,
+    p3: document.getElementById('txtP3').value,
+    firmaNombre: document.getElementById('txtFirmaNombre').value,
+    firmaCargo:  document.getElementById('txtFirmaCargo').value
+  };
+}
+
+function buildCarta(dir, ests, fc, ev, fi, ff, lug){
+  const rango = fi===ff ? `el ${fmt(fi)}` : `del ${fmt(fi)} al ${fmt(ff)}`;
+  const t = getTextos(ests, ev, rango, lug);
+  const filas = ests.map(e=>`<tr><td>${e.id}</td><td>${e.nombre}</td></tr>`).join('');
   return `
     <div class="carta-hdr">${logoTag()}</div>
     <div class="carta-fecha">Chía, ${fmt(fc)}</div>
     <div class="carta-dest"><strong>${dir.nombre}</strong><br>${dir.cargo}<br>${dir.lbl}<br>UNIVERSIDAD DE LA SABANA</div>
     <div class="carta-saludo">${dir.trato}</div>
-    <div class="carta-body">La <strong>Dirección de Bienestar y Experiencia del Estudiante</strong> certifica que los siguientes estudiantes ${plural} a <strong>${ev}</strong> organizado por la Jefatura de Desarrollo Cultural, ${rango}${lugar}.</div>
+    <div class="carta-body">${t.p1}</div>
     <table class="carta-tabla">
       <thead><tr><th>ID</th><th>Nombre</th></tr></thead>
       <tbody>${filas}</tbody>
     </table>
-    <div class="carta-cierre">Es de interés para la Universidad promover en nuestros estudiantes el fortalecimiento de competencias complementarias a las académicas como parte de su formación integral, por esta razón le solicitamos amablemente autorizar a los estudiantes en mención, la presentación de pruebas académicas de manera extemporánea, no cobrar supletorios de exámenes, y así mismo no registrar las fallas por su ausencia y mantener la calificación de estos sobre cinco (5) de aquellas que se presenten durante las fechas de su participación.</div>
-    <div class="carta-cierre">Agradezco su comprensión y apoyo con este tipo de actividades ya que son vitales en la experiencia de los estudiantes y nuestro Proyecto Educativo Institucional.</div>
+    <div class="carta-cierre">${t.p2}</div>
+    <div class="carta-cierre">${t.p3}</div>
     <div style="margin-top:10px">Atentamente,</div>
     <div class="carta-firma">
-      <div class="carta-firma-nombre">MAGDA LORENA BELTRÁN</div>
-      <div>Jefe de Desarrollo Cultural</div>
+      <div class="carta-firma-nombre">${t.firmaNombre}</div>
+      <div>${t.firmaCargo}</div>
       <div style="font-size:10px;color:#555;margin-top:2px">Dirección de Bienestar y Experiencia del Estudiante</div>
     </div>
     <div class="carta-footer">
@@ -382,67 +442,57 @@ function renderPreview(){
 
 function navCarta(d){cartaActual+=d;renderPreview();}
 
-function cartaCSS(){
-  return `
-    *{box-sizing:border-box;margin:0;padding:0}
-    body{font-family:Arial,sans-serif;font-size:11.5px;line-height:1.78;color:#111;background:#fff}
-    .carta{padding:30mm 25mm 20mm 25mm}
-    @page{size:A4;margin:0}
-    @media print{
-      html,body{width:210mm;height:297mm}
-      .carta{padding:30mm 25mm 20mm 25mm;page-break-after:always}
-      .carta:last-child{page-break-after:avoid}
-      .no-print{display:none!important}
-    }
-    .carta-hdr{margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid #d0d0d0}
-    .carta-fecha{margin-bottom:18px}
-    .carta-dest{margin-bottom:16px;line-height:1.85}
-    .carta-saludo{margin-bottom:12px}
-    .carta-body,.carta-cierre{margin-bottom:12px;text-align:justify}
-    table{width:100%;border-collapse:collapse;margin:14px 0;font-size:11px}
-    th{background:#00205B;color:#fff;padding:7px 10px;text-align:left;font-weight:600;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-    td{padding:6px 10px;border:1px solid #c8c8c8}
-    tr:nth-child(even) td{background:#f3f6fb;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-    .carta-firma{margin-top:50px;padding-top:10px;border-top:1px solid #c8c8c8}
-    .carta-firma-nombre{font-weight:700;font-size:11.5px;margin-bottom:1px}
-    .carta-footer{margin-top:30px;padding-top:8px;border-top:1px solid #d0d0d0;font-size:8px;color:#777;text-align:center;line-height:1.6}
-    .print-hint{background:#fffbeb;border:2px solid #f59e0b;border-radius:8px;padding:14px 18px;font-family:Arial,sans-serif;font-size:12px;color:#78350f;margin:20px auto;max-width:560px;text-align:center;line-height:1.6}
-    .print-hint strong{display:block;font-size:14px;margin-bottom:6px;color:#92400e}
-    .print-btn{display:inline-block;margin-top:10px;background:#00205B;color:#fff;border:none;padding:10px 24px;border-radius:7px;font-family:Arial,sans-serif;font-size:13px;font-weight:600;cursor:pointer}
-  `;
-}
-
 function abrirParaImprimir(){
   if(!cartasData.length)return;
   const{fc,ev,fi,ff,lug}=params;
-
   let cartasHTML='';
   cartasData.forEach(c=>{
     const dir=dirs[c.facultad];
     cartasHTML+=`<div class="carta">${buildCarta(dir,c.ests,fc,ev,fi,ff,lug)}</div>`;
   });
-
-  const plural=cartasData.length>1?`${cartasData.length} cartas`:'la carta';
   const win=window.open('','_blank');
   win.document.write(`<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<title>Excusas — ${fmt(fc)}</title>
-<style>${cartaCSS()}</style>
-</head>
-<body>
-<div class="print-hint no-print">
-  <strong>&#128393; Guardar como PDF</strong>
+<html lang="es"><head><meta charset="UTF-8"><title>Excusas — ${fmt(fc)}</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;font-size:11.5px;line-height:1.78;color:#111;background:#fff}
+.carta{padding:30mm 25mm 20mm 25mm}
+@page{size:A4;margin:0}
+@media print{
+  html,body{width:210mm;height:297mm}
+  .carta{padding:30mm 25mm 20mm 25mm;page-break-after:always}
+  .carta:last-child{page-break-after:avoid}
+  .no-print{display:none!important}
+}
+.carta-hdr{margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid #d0d0d0}
+.carta-fecha{margin-bottom:18px}
+.carta-dest{margin-bottom:16px;line-height:1.85}
+.carta-saludo{margin-bottom:12px}
+.carta-body,.carta-cierre{margin-bottom:12px;text-align:justify}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:11px}
+th{background:#00205B;color:#fff;padding:7px 10px;text-align:left;font-weight:600;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+td{padding:6px 10px;border:1px solid #c8c8c8}
+tr:nth-child(even) td{background:#f3f6fb;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.carta-firma{margin-top:50px;padding-top:10px;border-top:1px solid #c8c8c8}
+.carta-firma-nombre{font-weight:700;font-size:11.5px;margin-bottom:1px}
+.carta-footer{margin-top:30px;padding-top:8px;border-top:1px solid #d0d0d0;font-size:8px;color:#777;text-align:center;line-height:1.6}
+.hint-box{background:#fffbeb;border:2px solid #f59e0b;border-radius:8px;padding:14px 18px;font-family:Arial,sans-serif;font-size:12px;color:#78350f;margin:20px auto;max-width:560px;text-align:center;line-height:1.6}
+.hint-box strong{display:block;font-size:14px;margin-bottom:6px;color:#92400e}
+.print-btn{display:inline-block;margin-top:10px;background:#00205B;color:#fff;border:none;padding:10px 24px;border-radius:7px;font-family:Arial,sans-serif;font-size:13px;font-weight:600;cursor:pointer}
+</style></head><body>
+<div class="hint-box no-print">
+  <strong>Guardar como PDF</strong>
   Presiona el botón o usa <kbd>Ctrl+P</kbd> (Windows) / <kbd>Cmd+P</kbd> (Mac).<br>
-  En el diálogo de impresión selecciona <strong>"Guardar como PDF"</strong> como destino.<br>
-  Activa <strong>"Gráficos de fondo"</strong> para que el encabezado de la tabla aparezca en color.
+  Selecciona <strong>"Guardar como PDF"</strong> como destino.<br>
+  Activa <strong>"Gráficos de fondo"</strong> para conservar el color del encabezado de la tabla.
   <br><button class="print-btn" onclick="window.print()">Imprimir / Guardar PDF</button>
 </div>
 ${cartasHTML}
-</body>
-</html>`);
+</body></html>`);
   win.document.close();
 }
+
+// Init
+resetTexto();
 document.getElementById('fechaCarta').value=new Date().toISOString().split('T')[0];
 </script>
