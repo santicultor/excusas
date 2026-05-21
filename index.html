@@ -69,7 +69,7 @@ textarea{resize:vertical;line-height:1.6}
 .carta-footer{margin-top:30px;padding-top:8px;border-top:1px solid #d0d0d0;font-size:8px;color:#777;text-align:center;line-height:1.6}
 .empty-preview{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;color:#94a3b8;padding:60px 20px;text-align:center}
 .badge{display:inline-flex;align-items:center;background:#e8f0fe;color:#0c447c;font-size:10px;font-weight:600;padding:3px 8px;border-radius:20px;margin-left:8px}
-.modal-bg{display:none;min-height:100vh;position:fixed;inset:0;background:rgba(0,0,0,.5);align-items:center;justify-content:center;padding:20px;z-index:100}
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);align-items:center;justify-content:center;padding:20px;z-index:100}
 .modal-bg.open{display:flex}
 .modal{background:#fff;border-radius:12px;padding:24px;width:400px;box-shadow:0 8px 32px rgba(0,32,91,.2)}
 .modal h3{font-size:14px;font-weight:600;color:#00205B;margin-bottom:16px}
@@ -144,11 +144,14 @@ textarea{resize:vertical;line-height:1.6}
       <div class="card-title"><div class="card-title-dot"></div>4 · Texto de la carta</div>
       <button class="btn-reset" onclick="resetTexto()">↺ Restaurar</button>
       <p class="hint" style="margin-bottom:10px;margin-top:2px">
-        Etiquetas disponibles: <span class="tag">{evento}</span> <span class="tag">{rango}</span> <span class="tag">{lugar}</span>
+        Etiquetas: <span class="tag">{sujeto}</span> <span class="tag">{evento}</span> <span class="tag">{rango}</span> <span class="tag">{lugar}</span>
+      </p>
+      <p class="hint" style="margin-bottom:10px">
+        <span class="tag">{sujeto}</span> se reemplaza por <em>"el siguiente estudiante asistió"</em> o <em>"los siguientes estudiantes asistieron"</em> según el número.
       </p>
       <div class="field">
         <label>Párrafo 1 — Certificación</label>
-        <textarea id="txtP1" style="min-height:90px"></textarea>
+        <textarea id="txtP1" style="min-height:80px"></textarea>
       </div>
       <div class="field">
         <label>Párrafo 2 — Solicitud</label>
@@ -199,7 +202,6 @@ textarea{resize:vertical;line-height:1.6}
 </div>
 </div>
 
-<!-- MODAL -->
 <div class="modal-bg" id="modalBg">
   <div class="modal">
     <h3>Agregar estudiante</h3>
@@ -241,7 +243,7 @@ const dirs = {
 };
 
 const DEFAULTS = {
-  p1: `La Dirección de Bienestar y Experiencia del Estudiante hace constar que los siguientes estudiantes {plural} a {evento} organizado por la Jefatura de Desarrollo Cultural, {rango}{lugar}.`,
+  p1: `La Dirección de Bienestar y Experiencia del Estudiante hace constar que {sujeto} a {evento} organizado por la Jefatura de Desarrollo Cultural, {rango}{lugar}.`,
   p2: `Es de interés para la Universidad promover en nuestros estudiantes el fortalecimiento de competencias complementarias a las académicas como parte de su formación integral, por esta razón le solicitamos amablemente autorizar a los estudiantes en mención, la presentación de pruebas académicas de manera extemporánea, no cobrar supletorios de exámenes, y así mismo no registrar las fallas por su ausencia y mantener la calificación de estos sobre cinco (5) de aquellas que se presenten durante las fechas de su participación.`,
   p3: `Agradezco su comprensión y apoyo con este tipo de actividades ya que son vitales en la experiencia de los estudiantes y nuestro Proyecto Educativo Institucional.`,
   firmaNombre: `MAGDA LORENA BELTRÁN`,
@@ -249,9 +251,9 @@ const DEFAULTS = {
 };
 
 function resetTexto(){
-  document.getElementById('txtP1').value         = DEFAULTS.p1;
-  document.getElementById('txtP2').value         = DEFAULTS.p2;
-  document.getElementById('txtP3').value         = DEFAULTS.p3;
+  document.getElementById('txtP1').value          = DEFAULTS.p1;
+  document.getElementById('txtP2').value          = DEFAULTS.p2;
+  document.getElementById('txtP3').value          = DEFAULTS.p3;
   document.getElementById('txtFirmaNombre').value = DEFAULTS.firmaNombre;
   document.getElementById('txtFirmaCargo').value  = DEFAULTS.firmaCargo;
 }
@@ -299,10 +301,10 @@ function closeModal(){
 }
 
 function agregarEst(){
-  const id       = document.getElementById('mId').value.trim();
-  const nombre   = document.getElementById('mNombre').value.trim();
-  const facultad = document.getElementById('mFacultad').value;
-  const programa = document.getElementById('mPrograma').value.trim();
+  const id=document.getElementById('mId').value.trim();
+  const nombre=document.getElementById('mNombre').value.trim();
+  const facultad=document.getElementById('mFacultad').value;
+  const programa=document.getElementById('mPrograma').value.trim();
   if(!id||!nombre||!facultad){alert('Completa ID, Nombre y Facultad.');return;}
   estudiantes.push({id,nombre,facultad,programa});
   renderTabla(); closeModal();
@@ -328,38 +330,26 @@ function parseMasivo(){
   if(!raw){alert('El campo está vacío.');return;}
   const lines=raw.split('\n').filter(l=>l.trim());
   let added=0; const noRec=[];
-
   lines.forEach((line,idx)=>{
     const parts=line.split('\t').map(p=>p.trim());
-    // ignorar encabezado
     if(parts[0].toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").includes('id'))return;
     if(parts.length<2)return;
-
     const id=parts[0];
-    let nombre, fRaw, programa='';
-
+    let nombre,fRaw,programa='';
     if(parts.length>=5){
-      // ID | NombreSinTilde | NombreConTilde | Facultad | Programa
       const c1=parts[1].toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
       const c2=parts[2].toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
       const dup=c1===c2||c2.startsWith(c1.split(' ')[0])||c1.startsWith(c2.split(' ')[0]);
-      if(dup){ nombre=parts[2]||parts[1]; fRaw=parts[3]; programa=parts[4]; }
-      else   { nombre=parts[1]; fRaw=parts[2]; programa=parts.slice(3).join(' '); }
-    } else if(parts.length===4){
-      // ID | Nombre | Facultad | Programa
-      nombre=parts[1]; fRaw=parts[2]; programa=parts[3];
-    } else if(parts.length===3){
-      nombre=parts[1]; fRaw=parts[2];
-    } else {
-      nombre=parts[1]; fRaw='';
-    }
-
+      if(dup){nombre=parts[2]||parts[1];fRaw=parts[3];programa=parts[4];}
+      else{nombre=parts[1];fRaw=parts[2];programa=parts.slice(3).join(' ');}
+    } else if(parts.length===4){nombre=parts[1];fRaw=parts[2];programa=parts[3];}
+    else if(parts.length===3){nombre=parts[1];fRaw=parts[2];}
+    else{nombre=parts[1];fRaw='';}
     const fac=norm(fRaw||'');
     if(!fac){noRec.push(`Línea ${idx+1}: "${fRaw}"`);return;}
     if(!id||!nombre)return;
     estudiantes.push({id,nombre,facultad:fac,programa}); added++;
   });
-
   renderTabla();
   document.getElementById('pasteMasivo').value='';
   let msg=`${added} estudiante(s) importado(s).`;
@@ -372,14 +362,19 @@ function logoTag(){
   return`<div style="font-family:Arial,sans-serif;font-size:15px;font-weight:700;color:#00205B;line-height:1.2">Universidad de<br>La Sabana</div>`;
 }
 
+function hasPrograma(ests){return ests.some(e=>e.programa&&e.programa.trim());}
+
 function getTextos(ests,ev,rango,lug){
-  const plural=ests.length===1?'asistió':'asistieron';
-  const lugarStr=lug?` en ${lug}`:'';
-  const repl=t=>t
-    .replace(/\{plural\}/g,plural)
-    .replace(/\{evento\}/g,`<strong>${ev}</strong>`)
-    .replace(/\{rango\}/g,rango)
-    .replace(/\{lugar\}/g,lugarStr);
+  // Frase completa con concordancia correcta
+  const sujeto = ests.length===1
+    ? 'el siguiente estudiante asistió'
+    : 'los siguientes estudiantes asistieron';
+  const lugarStr = lug ? ` en ${lug}` : '';
+  const repl = t => t
+    .replace(/\{sujeto\}/g, sujeto)
+    .replace(/\{evento\}/g, `<strong>${ev}</strong>`)
+    .replace(/\{rango\}/g, rango)
+    .replace(/\{lugar\}/g, lugarStr);
   return {
     p1: repl(document.getElementById('txtP1').value),
     p2: document.getElementById('txtP2').value,
@@ -389,19 +384,12 @@ function getTextos(ests,ev,rango,lug){
   };
 }
 
-// Decide si mostrar columna Programa (si al menos un estudiante la tiene)
-function hasPrograma(ests){ return ests.some(e=>e.programa&&e.programa.trim()); }
-
 function buildCarta(dir,ests,fc,ev,fi,ff,lug){
   const rango=fi===ff?`el ${fmt(fi)}`:`del ${fmt(fi)} al ${fmt(ff)}`;
   const t=getTextos(ests,ev,rango,lug);
   const conProg=hasPrograma(ests);
   const thProg=conProg?'<th>Programa</th>':'';
-  const filas=ests.map(e=>{
-    const tdProg=conProg?`<td>${e.programa||'—'}</td>`:'';
-    return `<tr><td>${e.id}</td><td>${e.nombre}</td>${tdProg}</tr>`;
-  }).join('');
-
+  const filas=ests.map(e=>`<tr><td>${e.id}</td><td>${e.nombre}</td>${conProg?`<td>${e.programa||'—'}</td>`:''}</tr>`).join('');
   return `
     <div class="carta-hdr">${logoTag()}</div>
     <div class="carta-fecha">Chía, ${fmt(fc)}</div>
