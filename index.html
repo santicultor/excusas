@@ -19,7 +19,7 @@ input[type=date],input[type=text],select,textarea{background:#fff;border:1px sol
 input:focus,select:focus,textarea:focus{border-color:#00205B;box-shadow:0 0 0 3px rgba(0,32,91,.1)}
 textarea{resize:vertical;line-height:1.6}
 .date-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.logo-drop{border:1.5px dashed #c8d5ea;border-radius:8px;padding:12px;display:flex;align-items:center;gap:10px;cursor:pointer;background:#fff;transition:border-color .15s,background .15s}
+.logo-drop{border:1.5px dashed #c8d5ea;border-radius:8px;padding:12px;display:flex;align-items:center;gap:10px;cursor:pointer;background:#fff;transition:border-color .15s}
 .logo-drop:hover{border-color:#00205B;background:#f0f5fb}
 .logo-drop input{display:none}
 .logo-thumb{height:28px;width:auto;object-fit:contain}
@@ -27,9 +27,9 @@ textarea{resize:vertical;line-height:1.6}
 .logo-ok{font-size:11px;color:#16a34a;font-weight:600}
 .hint{font-size:10px;color:#94a3b8;margin-top:3px;line-height:1.4}
 .est-wrap{border:1px solid #e2e8f4;border-radius:8px;overflow:hidden;background:#fff}
-.est-table{width:100%;border-collapse:collapse;font-size:11.5px}
-.est-table th{background:#00205B;color:#fff;padding:7px 10px;text-align:left;font-weight:500;font-size:10px;text-transform:uppercase;letter-spacing:.5px}
-.est-table td{padding:6px 10px;border-bottom:1px solid #f1f5fb;color:#1e2d50}
+.est-table{width:100%;border-collapse:collapse;font-size:11px}
+.est-table th{background:#00205B;color:#fff;padding:6px 8px;text-align:left;font-weight:500;font-size:9.5px;text-transform:uppercase;letter-spacing:.5px}
+.est-table td{padding:5px 8px;border-bottom:1px solid #f1f5fb;color:#1e2d50;font-size:11px}
 .est-table tbody tr:last-child td{border-bottom:none}
 .est-table tbody tr:hover td{background:#f8fafd}
 .btn-rm{background:none;border:none;color:#e53e3e;cursor:pointer;font-size:13px;padding:0 2px;opacity:.6;line-height:1}
@@ -69,9 +69,9 @@ textarea{resize:vertical;line-height:1.6}
 .carta-footer{margin-top:30px;padding-top:8px;border-top:1px solid #d0d0d0;font-size:8px;color:#777;text-align:center;line-height:1.6}
 .empty-preview{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;color:#94a3b8;padding:60px 20px;text-align:center}
 .badge{display:inline-flex;align-items:center;background:#e8f0fe;color:#0c447c;font-size:10px;font-weight:600;padding:3px 8px;border-radius:20px;margin-left:8px}
-.modal-bg{display:none;min-height:500px;background:rgba(0,0,0,.5);align-items:center;justify-content:center;padding:20px}
+.modal-bg{display:none;min-height:100vh;position:fixed;inset:0;background:rgba(0,0,0,.5);align-items:center;justify-content:center;padding:20px;z-index:100}
 .modal-bg.open{display:flex}
-.modal{background:#fff;border-radius:12px;padding:24px;width:380px;box-shadow:0 8px 32px rgba(0,32,91,.2)}
+.modal{background:#fff;border-radius:12px;padding:24px;width:400px;box-shadow:0 8px 32px rgba(0,32,91,.2)}
 .modal h3{font-size:14px;font-weight:600;color:#00205B;margin-bottom:16px}
 .modal .field{margin-bottom:10px}
 .modal-actions{display:flex;gap:8px;margin-top:16px}
@@ -121,8 +121,8 @@ textarea{resize:vertical;line-height:1.6}
       </div>
       <div class="est-wrap">
         <table class="est-table">
-          <thead><tr><th>ID</th><th>Nombre</th><th>Facultad</th><th></th></tr></thead>
-          <tbody id="estBody"><tr><td colspan="4" class="empty-est">Sin estudiantes aún</td></tr></tbody>
+          <thead><tr><th>ID</th><th>Nombre</th><th>Facultad</th><th>Programa</th><th></th></tr></thead>
+          <tbody id="estBody"><tr><td colspan="5" class="empty-est">Sin estudiantes aún</td></tr></tbody>
         </table>
       </div>
       <button class="btn-add" onclick="openModal()">
@@ -131,7 +131,7 @@ textarea{resize:vertical;line-height:1.6}
       </button>
       <div style="margin-top:12px">
         <div class="field"><label>Pegar desde Excel</label>
-        <textarea id="pasteMasivo" style="min-height:60px" placeholder="Copia y pega directamente desde Excel&#10;Columnas: ID · Nombre · Facultad"></textarea></div>
+        <textarea id="pasteMasivo" style="min-height:60px" placeholder="Columnas: ID · Nombre · Facultad · Programa"></textarea></div>
         <button class="btn-add" onclick="parseMasivo()">
           <svg class="icon-svg" viewBox="0 0 16 16" fill="none" stroke="#00387b" stroke-width="2"><rect x="2" y="2" width="12" height="12" rx="2"/><line x1="5" y1="6" x2="11" y2="6"/><line x1="5" y1="9" x2="9" y2="9"/></svg>
           Importar desde Excel
@@ -142,10 +142,9 @@ textarea{resize:vertical;line-height:1.6}
 
     <div class="card">
       <div class="card-title"><div class="card-title-dot"></div>4 · Texto de la carta</div>
-      <button class="btn-reset" onclick="resetTexto()" title="Restaurar texto original">↺ Restaurar</button>
+      <button class="btn-reset" onclick="resetTexto()">↺ Restaurar</button>
       <p class="hint" style="margin-bottom:10px;margin-top:2px">
-        Edita el cuerpo de la carta. Usa las etiquetas:
-        <span class="tag">{evento}</span> <span class="tag">{rango}</span> <span class="tag">{lugar}</span>
+        Etiquetas disponibles: <span class="tag">{evento}</span> <span class="tag">{rango}</span> <span class="tag">{lugar}</span>
       </p>
       <div class="field">
         <label>Párrafo 1 — Certificación</label>
@@ -157,7 +156,7 @@ textarea{resize:vertical;line-height:1.6}
       </div>
       <div class="field">
         <label>Párrafo 3 — Agradecimiento</label>
-        <textarea id="txtP3" style="min-height:60px"></textarea>
+        <textarea id="txtP3" style="min-height:55px"></textarea>
       </div>
       <div class="field">
         <label>Firmante — Nombre</label>
@@ -200,6 +199,7 @@ textarea{resize:vertical;line-height:1.6}
 </div>
 </div>
 
+<!-- MODAL -->
 <div class="modal-bg" id="modalBg">
   <div class="modal">
     <h3>Agregar estudiante</h3>
@@ -219,6 +219,7 @@ textarea{resize:vertical;line-height:1.6}
         <option value="Educación">Facultad de Educación</option>
       </select>
     </div>
+    <div class="field"><label>Programa académico</label><input type="text" id="mPrograma" placeholder="Ej: Comunicación Audiovisual" style="width:100%;padding:8px 11px;border:1px solid #dde3ef;border-radius:7px;font-size:13px;font-family:'Inter',sans-serif;outline:none"></div>
     <div class="modal-actions">
       <button class="btn-ok" onclick="agregarEst()">Agregar</button>
       <button class="btn-cancel" onclick="closeModal()">Cancelar</button>
@@ -239,8 +240,8 @@ const dirs = {
   "Educación":                            {nombre:"Carlos Alberto Gonzalez Gomez",      trato:"Apreciado Carlos Alberto:", cargo:"Director de Estudiantes",  lbl:"Facultad de Educación"}
 };
 
-const TEXTOS_DEFAULT = {
-  p1: `La Dirección de Bienestar y Experiencia del Estudiante certifica que los siguientes estudiantes {plural} a {evento} organizado por la Jefatura de Desarrollo Cultural, {rango}{lugar}.`,
+const DEFAULTS = {
+  p1: `La Dirección de Bienestar y Experiencia del Estudiante hace constar que los siguientes estudiantes {plural} a {evento} organizado por la Jefatura de Desarrollo Cultural, {rango}{lugar}.`,
   p2: `Es de interés para la Universidad promover en nuestros estudiantes el fortalecimiento de competencias complementarias a las académicas como parte de su formación integral, por esta razón le solicitamos amablemente autorizar a los estudiantes en mención, la presentación de pruebas académicas de manera extemporánea, no cobrar supletorios de exámenes, y así mismo no registrar las fallas por su ausencia y mantener la calificación de estos sobre cinco (5) de aquellas que se presenten durante las fechas de su participación.`,
   p3: `Agradezco su comprensión y apoyo con este tipo de actividades ya que son vitales en la experiencia de los estudiantes y nuestro Proyecto Educativo Institucional.`,
   firmaNombre: `MAGDA LORENA BELTRÁN`,
@@ -248,11 +249,11 @@ const TEXTOS_DEFAULT = {
 };
 
 function resetTexto(){
-  document.getElementById('txtP1').value = TEXTOS_DEFAULT.p1;
-  document.getElementById('txtP2').value = TEXTOS_DEFAULT.p2;
-  document.getElementById('txtP3').value = TEXTOS_DEFAULT.p3;
-  document.getElementById('txtFirmaNombre').value = TEXTOS_DEFAULT.firmaNombre;
-  document.getElementById('txtFirmaCargo').value  = TEXTOS_DEFAULT.firmaCargo;
+  document.getElementById('txtP1').value         = DEFAULTS.p1;
+  document.getElementById('txtP2').value         = DEFAULTS.p2;
+  document.getElementById('txtP3').value         = DEFAULTS.p3;
+  document.getElementById('txtFirmaNombre').value = DEFAULTS.firmaNombre;
+  document.getElementById('txtFirmaCargo').value  = DEFAULTS.firmaCargo;
 }
 
 let logoDataURL='', estudiantes=[], cartasData=[], cartaActual=0, params={};
@@ -293,28 +294,30 @@ function fmt(s){
 function openModal(){document.getElementById('modalBg').classList.add('open');document.getElementById('mId').focus();}
 function closeModal(){
   document.getElementById('modalBg').classList.remove('open');
-  ['mId','mNombre'].forEach(id=>document.getElementById(id).value='');
+  ['mId','mNombre','mPrograma'].forEach(id=>document.getElementById(id).value='');
   document.getElementById('mFacultad').value='';
 }
 
 function agregarEst(){
-  const id=document.getElementById('mId').value.trim();
-  const nombre=document.getElementById('mNombre').value.trim();
-  const facultad=document.getElementById('mFacultad').value;
-  if(!id||!nombre||!facultad){alert('Completa todos los campos.');return;}
-  estudiantes.push({id,nombre,facultad});
+  const id       = document.getElementById('mId').value.trim();
+  const nombre   = document.getElementById('mNombre').value.trim();
+  const facultad = document.getElementById('mFacultad').value;
+  const programa = document.getElementById('mPrograma').value.trim();
+  if(!id||!nombre||!facultad){alert('Completa ID, Nombre y Facultad.');return;}
+  estudiantes.push({id,nombre,facultad,programa});
   renderTabla(); closeModal();
 }
 
 function renderTabla(){
   const tb=document.getElementById('estBody');
   document.getElementById('estCount').textContent=estudiantes.length;
-  if(!estudiantes.length){tb.innerHTML='<tr><td colspan="4" class="empty-est">Sin estudiantes aún</td></tr>';return;}
+  if(!estudiantes.length){tb.innerHTML='<tr><td colspan="5" class="empty-est">Sin estudiantes aún</td></tr>';return;}
   const sh=k=>{const d=dirs[k];return d?d.lbl.replace('Facultad de ','').replace('Escuela Internacional de ',''):k;};
   tb.innerHTML=estudiantes.map((e,i)=>`<tr>
-    <td style="font-size:11px;color:#64748b">${e.id}</td>
+    <td style="color:#64748b">${e.id}</td>
     <td>${e.nombre}</td>
-    <td style="font-size:10px;color:#64748b">${sh(e.facultad)}</td>
+    <td style="color:#64748b;font-size:10px">${sh(e.facultad)}</td>
+    <td style="color:#64748b;font-size:10px">${e.programa||'—'}</td>
     <td><button class="btn-rm" onclick="rmEst(${i})">&#10005;</button></td>
   </tr>`).join('');
 }
@@ -325,24 +328,38 @@ function parseMasivo(){
   if(!raw){alert('El campo está vacío.');return;}
   const lines=raw.split('\n').filter(l=>l.trim());
   let added=0; const noRec=[];
+
   lines.forEach((line,idx)=>{
     const parts=line.split('\t').map(p=>p.trim());
+    // ignorar encabezado
     if(parts[0].toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").includes('id'))return;
     if(parts.length<2)return;
+
     const id=parts[0];
-    let nombre,fRaw;
-    if(parts.length>=4){
+    let nombre, fRaw, programa='';
+
+    if(parts.length>=5){
+      // ID | NombreSinTilde | NombreConTilde | Facultad | Programa
       const c1=parts[1].toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
       const c2=parts[2].toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
       const dup=c1===c2||c2.startsWith(c1.split(' ')[0])||c1.startsWith(c2.split(' ')[0]);
-      nombre=dup?(parts[2]||parts[1]):parts[1]; fRaw=parts[3];
-    } else if(parts.length===3){nombre=parts[1];fRaw=parts[2];}
-    else{nombre=parts[1];fRaw='';}
+      if(dup){ nombre=parts[2]||parts[1]; fRaw=parts[3]; programa=parts[4]; }
+      else   { nombre=parts[1]; fRaw=parts[2]; programa=parts.slice(3).join(' '); }
+    } else if(parts.length===4){
+      // ID | Nombre | Facultad | Programa
+      nombre=parts[1]; fRaw=parts[2]; programa=parts[3];
+    } else if(parts.length===3){
+      nombre=parts[1]; fRaw=parts[2];
+    } else {
+      nombre=parts[1]; fRaw='';
+    }
+
     const fac=norm(fRaw||'');
     if(!fac){noRec.push(`Línea ${idx+1}: "${fRaw}"`);return;}
     if(!id||!nombre)return;
-    estudiantes.push({id,nombre,facultad:fac}); added++;
+    estudiantes.push({id,nombre,facultad:fac,programa}); added++;
   });
+
   renderTabla();
   document.getElementById('pasteMasivo').value='';
   let msg=`${added} estudiante(s) importado(s).`;
@@ -355,14 +372,14 @@ function logoTag(){
   return`<div style="font-family:Arial,sans-serif;font-size:15px;font-weight:700;color:#00205B;line-height:1.2">Universidad de<br>La Sabana</div>`;
 }
 
-function getTextos(ests, ev, rango, lugar){
-  const plural = ests.length===1 ? 'asistió' : 'asistieron';
-  const lugarStr = lugar ? ` en ${lugar}` : '';
-  const repl = t => t
-    .replace(/\{plural\}/g, plural)
-    .replace(/\{evento\}/g, `<strong>${ev}</strong>`)
-    .replace(/\{rango\}/g, rango)
-    .replace(/\{lugar\}/g, lugarStr);
+function getTextos(ests,ev,rango,lug){
+  const plural=ests.length===1?'asistió':'asistieron';
+  const lugarStr=lug?` en ${lug}`:'';
+  const repl=t=>t
+    .replace(/\{plural\}/g,plural)
+    .replace(/\{evento\}/g,`<strong>${ev}</strong>`)
+    .replace(/\{rango\}/g,rango)
+    .replace(/\{lugar\}/g,lugarStr);
   return {
     p1: repl(document.getElementById('txtP1').value),
     p2: document.getElementById('txtP2').value,
@@ -372,10 +389,19 @@ function getTextos(ests, ev, rango, lugar){
   };
 }
 
-function buildCarta(dir, ests, fc, ev, fi, ff, lug){
-  const rango = fi===ff ? `el ${fmt(fi)}` : `del ${fmt(fi)} al ${fmt(ff)}`;
-  const t = getTextos(ests, ev, rango, lug);
-  const filas = ests.map(e=>`<tr><td>${e.id}</td><td>${e.nombre}</td></tr>`).join('');
+// Decide si mostrar columna Programa (si al menos un estudiante la tiene)
+function hasPrograma(ests){ return ests.some(e=>e.programa&&e.programa.trim()); }
+
+function buildCarta(dir,ests,fc,ev,fi,ff,lug){
+  const rango=fi===ff?`el ${fmt(fi)}`:`del ${fmt(fi)} al ${fmt(ff)}`;
+  const t=getTextos(ests,ev,rango,lug);
+  const conProg=hasPrograma(ests);
+  const thProg=conProg?'<th>Programa</th>':'';
+  const filas=ests.map(e=>{
+    const tdProg=conProg?`<td>${e.programa||'—'}</td>`:'';
+    return `<tr><td>${e.id}</td><td>${e.nombre}</td>${tdProg}</tr>`;
+  }).join('');
+
   return `
     <div class="carta-hdr">${logoTag()}</div>
     <div class="carta-fecha">Chía, ${fmt(fc)}</div>
@@ -383,7 +409,7 @@ function buildCarta(dir, ests, fc, ev, fi, ff, lug){
     <div class="carta-saludo">${dir.trato}</div>
     <div class="carta-body">${t.p1}</div>
     <table class="carta-tabla">
-      <thead><tr><th>ID</th><th>Nombre</th></tr></thead>
+      <thead><tr><th>ID</th><th>Nombre</th>${thProg}</tr></thead>
       <tbody>${filas}</tbody>
     </table>
     <div class="carta-cierre">${t.p2}</div>
@@ -436,8 +462,7 @@ function renderPreview(){
     nav=`<div class="preview-bar"><span class="preview-bar-label">Vista previa</span></div>`;
   }
   const c=cartasData[cartaActual];
-  const dir=dirs[c.facultad];
-  cont.innerHTML=`${nav}<div class="carta-shell"><div class="carta">${buildCarta(dir,c.ests,fc,ev,fi,ff,lug)}</div></div>`;
+  cont.innerHTML=`${nav}<div class="carta-shell"><div class="carta">${buildCarta(dirs[c.facultad],c.ests,fc,ev,fi,ff,lug)}</div></div>`;
 }
 
 function navCarta(d){cartaActual+=d;renderPreview();}
@@ -447,8 +472,7 @@ function abrirParaImprimir(){
   const{fc,ev,fi,ff,lug}=params;
   let cartasHTML='';
   cartasData.forEach(c=>{
-    const dir=dirs[c.facultad];
-    cartasHTML+=`<div class="carta">${buildCarta(dir,c.ests,fc,ev,fi,ff,lug)}</div>`;
+    cartasHTML+=`<div class="carta">${buildCarta(dirs[c.facultad],c.ests,fc,ev,fi,ff,lug)}</div>`;
   });
   const win=window.open('','_blank');
   win.document.write(`<!DOCTYPE html>
@@ -476,15 +500,15 @@ tr:nth-child(even) td{background:#f3f6fb;-webkit-print-color-adjust:exact;print-
 .carta-firma{margin-top:50px;padding-top:10px;border-top:1px solid #c8c8c8}
 .carta-firma-nombre{font-weight:700;font-size:11.5px;margin-bottom:1px}
 .carta-footer{margin-top:30px;padding-top:8px;border-top:1px solid #d0d0d0;font-size:8px;color:#777;text-align:center;line-height:1.6}
-.hint-box{background:#fffbeb;border:2px solid #f59e0b;border-radius:8px;padding:14px 18px;font-family:Arial,sans-serif;font-size:12px;color:#78350f;margin:20px auto;max-width:560px;text-align:center;line-height:1.6}
+.hint-box{background:#fffbeb;border:2px solid #f59e0b;border-radius:8px;padding:14px 18px;font-family:Arial,sans-serif;font-size:12px;color:#78350f;margin:20px auto;max-width:520px;text-align:center;line-height:1.6}
 .hint-box strong{display:block;font-size:14px;margin-bottom:6px;color:#92400e}
 .print-btn{display:inline-block;margin-top:10px;background:#00205B;color:#fff;border:none;padding:10px 24px;border-radius:7px;font-family:Arial,sans-serif;font-size:13px;font-weight:600;cursor:pointer}
 </style></head><body>
 <div class="hint-box no-print">
   <strong>Guardar como PDF</strong>
-  Presiona el botón o usa <kbd>Ctrl+P</kbd> (Windows) / <kbd>Cmd+P</kbd> (Mac).<br>
+  Presiona el botón o usa <kbd>Ctrl+P</kbd> / <kbd>Cmd+P</kbd>.<br>
   Selecciona <strong>"Guardar como PDF"</strong> como destino.<br>
-  Activa <strong>"Gráficos de fondo"</strong> para conservar el color del encabezado de la tabla.
+  Activa <strong>"Gráficos de fondo"</strong> para conservar el color del encabezado.
   <br><button class="print-btn" onclick="window.print()">Imprimir / Guardar PDF</button>
 </div>
 ${cartasHTML}
@@ -492,7 +516,6 @@ ${cartasHTML}
   win.document.close();
 }
 
-// Init
 resetTexto();
 document.getElementById('fechaCarta').value=new Date().toISOString().split('T')[0];
 </script>
